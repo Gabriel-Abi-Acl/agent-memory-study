@@ -1,6 +1,7 @@
-"""Mensagens e o formato mínimo de um diálogo sintético.
+"""Mensagens e o formato mínimo do fixture de diálogo.
 
-O gabarito da resposta (texto esperado) entra no PR2. Aqui o fato plantado
+O dataset do estudo, com gabarito e tipo de sondagem, fica em
+`eval_dialogues` (`data/eval/dialogues.v1.jsonl`). Aqui o fato plantado
 é só um trecho literal da mensagem em que ele aparece.
 """
 
