@@ -12,7 +12,7 @@ from agent_memory_study.memory.summary import FakeSummarizer, Summarizer, Summar
 from agent_memory_study.memory.vector import VectorMemory
 from agent_memory_study.memory.window import WindowMemory
 
-_STRATEGIES = ("window", "summary", "vector")
+STRATEGIES = ("window", "summary", "vector")
 
 
 def build_memory(
@@ -34,5 +34,5 @@ def build_memory(
             embedder if embedder is not None else FakeEmbedder(),
             top_k=settings.vector_top_k,
         )
-    allowed = ", ".join(_STRATEGIES)
+    allowed = ", ".join(STRATEGIES)
     raise ValueError(f"unknown memory strategy: {strategy!r}; expected one of: {allowed}")
