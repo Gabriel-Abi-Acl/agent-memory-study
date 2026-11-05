@@ -7,11 +7,12 @@ sem mudar a estratégia.
 
 from __future__ import annotations
 
+from collections.abc import Sequence
 from typing import Protocol
 
 from agent_memory_study.types import Message
 
-_SUMMARY_PREFIX = "Resumo da conversa até aqui: "
+SUMMARY_PREFIX = "Resumo da conversa até aqui: "
 
 
 class Summarizer(Protocol):
@@ -59,5 +60,48 @@ class SummaryMemory:
     def context(self, query: str | None = None) -> list[Message]:
         if not self.summary:
             return list(self._recent)
-        header = Message(role="system", content=f"{_SUMMARY_PREFIX}{self.summary}")
+        header = Message(role="system", content=f"{SUMMARY_PREFIX}{self.summary}")
         return [header, *self._recent]
+
+
+class _CompletionText(Protocol):
+    text: str
+
+
+class _Chat(Protocol):
+    def complete(self, messages: Sequence[Message]) -> _CompletionText:
+        """Devolve a fala do modelo. Retry e cache ficam no cliente."""
+
+
+class LLMSummarizer:
+    """Pede ao modelo o resumo novo e substitui o texto anterior.
+
+    Literal corrigido só sobrevive se o modelo o reescrever. O cliente é quem
+    aplica retry e cache; este objeto não abre conexão.
+    """
+
+    def __init__(self, client: _Chat) -> None:
+        self.client = client
+
+    def summarize(self, previous_summary: str, messages: list[Message]) -> str:
+        transcript = "\n".join(f"{message.role}: {message.content}" for message in messages)
+        previous = previous_summary or "(vazio)"
+        completion = self.client.complete(
+            [
+                Message(
+                    "system",
+                    "Atualize o resumo da conversa em português. "
+                    "Preserve valores literais (nomes, códigos, cores, números). "
+                    "Se uma mensagem corrigir um valor, fique só com o valor novo. "
+                    "Responda apenas com o resumo.",
+                ),
+                Message(
+                    "user",
+                    f"Resumo anterior:\n{previous}\n\nMensagens novas:\n{transcript}",
+                ),
+            ]
+        )
+        text = completion.text.strip()
+        if not text:
+            raise ValueError("summarizer returned an empty summary")
+        return text

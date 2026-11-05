@@ -1,7 +1,7 @@
 """Gerador de respostas. A implementação falsa não chama rede.
 
-`FakeLLM` devolve um texto fixo e guarda o prompt. Não simula acerto
-de gabarito: correção da resposta é métrica do PR3, com modelo real no PR4.
+`FakeLLM` devolve um texto fixo e guarda o prompt. Não conhece o gabarito:
+quem compara a fala com a referência é o harness em `metrics`.
 """
 
 from __future__ import annotations
