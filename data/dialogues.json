@@ -1,0 +1,136 @@
+{
+  "dialogues": [
+    {
+      "id": "pref-cor",
+      "messages": [
+        {
+          "role": "user",
+          "content": "A cor favorita da usuária é azul-petróleo."
+        },
+        {
+          "role": "assistant",
+          "content": "Anotado."
+        },
+        {
+          "role": "user",
+          "content": "O almoço de hoje foi lasanha."
+        },
+        {
+          "role": "assistant",
+          "content": "Registro o almoço."
+        },
+        {
+          "role": "user",
+          "content": "O prazo de entrega é sexta-feira."
+        },
+        {
+          "role": "assistant",
+          "content": "Prazo registrado."
+        }
+      ],
+      "facts": [
+        {
+          "id": "favorite-color",
+          "text": "azul-petróleo",
+          "planted_at_turn": 0
+        }
+      ],
+      "probes": [
+        {
+          "id": "ask-color",
+          "question": "Qual é a cor favorita da usuária?",
+          "after_turn": 5,
+          "expected_fact_ids": ["favorite-color"]
+        }
+      ]
+    },
+    {
+      "id": "codigo-projeto",
+      "messages": [
+        {
+          "role": "user",
+          "content": "O código interno do projeto é Nimbus-42."
+        },
+        {
+          "role": "assistant",
+          "content": "Anotado."
+        },
+        {
+          "role": "user",
+          "content": "A reunião de amanhã é às dez."
+        },
+        {
+          "role": "assistant",
+          "content": "Horário anotado."
+        },
+        {
+          "role": "user",
+          "content": "O fornecedor entrega cimento."
+        },
+        {
+          "role": "assistant",
+          "content": "Fornecedor anotado."
+        },
+        {
+          "role": "user",
+          "content": "A sala reservada é a 3B."
+        },
+        {
+          "role": "assistant",
+          "content": "Sala anotada."
+        }
+      ],
+      "facts": [
+        {
+          "id": "project-code",
+          "text": "Nimbus-42",
+          "planted_at_turn": 0
+        }
+      ],
+      "probes": [
+        {
+          "id": "ask-code",
+          "question": "Qual é o código interno do projeto?",
+          "after_turn": 7,
+          "expected_fact_ids": ["project-code"]
+        }
+      ]
+    },
+    {
+      "id": "gato-milo",
+      "messages": [
+        {
+          "role": "user",
+          "content": "O gato da usuária se chama Milo."
+        },
+        {
+          "role": "assistant",
+          "content": "Nome anotado."
+        },
+        {
+          "role": "user",
+          "content": "Ele come ração de peixe."
+        },
+        {
+          "role": "assistant",
+          "content": "Dieta anotada."
+        }
+      ],
+      "facts": [
+        {
+          "id": "pet-name",
+          "text": "Milo",
+          "planted_at_turn": 0
+        }
+      ],
+      "probes": [
+        {
+          "id": "ask-pet",
+          "question": "Como se chama o gato da usuária?",
+          "after_turn": 3,
+          "expected_fact_ids": ["pet-name"]
+        }
+      ]
+    }
+  ]
+}
